@@ -33,7 +33,7 @@ void plot (const std::string & name, const std::string & title,
 
 int main() {
     grid coordinates {x_0}, velocities {v_0};
-    grid times = mesh(t_0, t_N, step);
+    grid times = std::move(mesh(t_0, t_N, step));
     for (int i = 0; i < times.size(); ++i)
         new_node(velocities, coordinates, step);
     data_file_creation("result", times, coordinates, velocities);
@@ -107,7 +107,7 @@ void plot (const std::string & name, const std::string & title, const std::strin
            const std::string & x_column, const std::string & y_column) {
     FILE *gp = popen("gnuplot -persist", "w");
     if (!gp) throw std::runtime_error("Error opening pipe to GNUplot.");
-    std::vector<std::string> stuff = {"set term jpeg size 1280, 1280 font \"Helvetica,30\"",
+    std::vector<std::string> stuff = {"set term jpeg size 1920, 1080 font \"Helvetica,30\"",
                                       "set output \'" + title + ".jpg\'",
                                       "set title \'" + title + "\'",
                                       "set grid xtics ytics",
