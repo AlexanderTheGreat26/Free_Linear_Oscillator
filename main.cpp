@@ -35,7 +35,7 @@ int main() {
     grid coordinates {x_0}, velocities {v_0};
     grid times = std::move(mesh(t_0, t_N, step));
     method_implementation(times, coordinates, velocities, step, "RKM", Runge_Kutta_method);
-    method_implementation(times, coordinates, velocities, step, "PCM", Euler_Cauchy_method);
+    method_implementation(times, coordinates, velocities, step, "ECM", Euler_Cauchy_method);
     return 0;
 }
 
@@ -98,7 +98,7 @@ void Euler_Cauchy_method (grid & velocities, grid & coordinates, const double & 
 grid mesh (double left_border, const double & right_border, const double & mesh_step) {
     std::vector <double> xx ((right_border-left_border) / mesh_step + 1);
     xx[0] = left_border;
-    std::generate(xx.begin()+1, xx.end(), [&] {left_border += step; return left_border;});
+    std::generate(xx.begin()+1, xx.end(), [&] {left_border += mesh_step; return left_border;});
     return xx;
 }
 
